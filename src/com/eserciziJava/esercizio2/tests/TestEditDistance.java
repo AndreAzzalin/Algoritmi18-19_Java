@@ -8,55 +8,55 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class EditDistanceTests {
+public class TestEditDistance {
 
 
 	// editDistance normal
 	@Test
-	public void testCalculateOneEmpty() {
-		String s1 = "test";
-		String s2 = "";
-		assertEquals(s1.length(), EditDistance.calculate(s1, s2));
+	public void test_CalculateOneEmpty() {
+		String strA = "test";
+		String strB = "";
+		assertEquals(strA.length(), EditDistance.calculate(strA, strB));
 	}
 
 	@Test
-	public void testCalculateEmpty() {
+	public void test_CalculateEmpty() {
 		assertEquals(0, EditDistance.calculate("", ""));
 	}
 
 	//@todo approfondire tipo Executable
 	@Test
-	public void testCalculateNull() {
+	public void test_CalculateNull() {
 		assertThrows(IllegalArgumentException.class, () -> EditDistance.calculate(null, null));
 	}
 
 	@Test
-	public void testCalculateOne() {
+	public void test_CalculateOne() {
 		assertEquals(1, EditDistance.calculate("casa", "cassa"));
 	}
 
 
 	// editDistance dynamic normal
 	@Test
-	public void testCalculateDynOneEmpty() {
-		String s1 = "test";
-		String s2 = "";
-		assertEquals(s1.length(), EditDistance.calculateDyn(s1, s2));
+	public void test_CalculateDynOneEmpty() {
+		String strA = "test";
+		String strB = "";
+		assertEquals(strA.length(), EditDistance.calculateDyn(strA, strB));
 	}
 
 	@Test
-	public void testCalculateDynEmpty() {
+	public void test_CalculateDynEmpty() {
 		assertEquals(0, EditDistance.calculateDyn("", ""));
 	}
 
 	//@todo approfondire tipo Executable
 	@Test
-	public void testCalculateDynNull() {
+	public void test_CalculateDynNull() {
 		assertThrows(IllegalArgumentException.class, () -> EditDistance.calculateDyn(null, null));
 	}
 
 	@Test
-	public void testCalculateDynOne() {
+	public void test_CalculateDynOne() {
 		assertEquals(1, EditDistance.calculateDyn("casa", "cassa"));
 	}
 

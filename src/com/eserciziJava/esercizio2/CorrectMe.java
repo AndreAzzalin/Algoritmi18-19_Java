@@ -1,12 +1,14 @@
 package com.eserciziJava.esercizio2;
 
 import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import static java.util.function.Predicate.not;
 
 public class CorrectMe {
@@ -35,7 +37,7 @@ public class CorrectMe {
 
 		System.out.println("Do you want change dafault path? Y / N ");
 		String choice = sc.nextLine();
-		if (choice.equals("Y")||choice.equals("y")) {
+		if (choice.equals("Y") || choice.equals("y")) {
 			System.out.println("Insert new correctme.txt path:");
 			pathToCorrectMe = sc.nextLine();
 			System.out.println("Insert new dictionary.txt path:");
@@ -46,6 +48,7 @@ public class CorrectMe {
 		assumeCorrections(pathToCorrectMe, pathToDictionary);
 
 	}
+
 
 
 	private static void assumeCorrections(String pathToCorrectMe, String pathToDictionary) {
