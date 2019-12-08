@@ -1,30 +1,44 @@
 package com.eserciziJava.esercizio3;
 
-public class Node<T, U> {
+import org.jetbrains.annotations.NotNull;
 
-	private T value;
-	private U priority;
+public class Node<T> {
+	private Node<T> parent;
+	private T key;
+	int rank = 0;
 
+	//key è il valore del nodo
+	public Node(@NotNull T key) {
+		this.key = key;
 
-	public Node(T value, U priority) {
-		this.value = value;
-		this.priority = priority;
+		this.parent = this;
+		this.rank = 0;
 	}
 
-
-	public T getValue() {
-		return value;
+	public Node<T> getParent() {
+		return parent;
 	}
 
-	public U getPriority() {
-		return priority;
+	public T getKey() {
+		return key;
 	}
 
-	public void setValue(T value) {
-		this.value = value;
+	public int getRank() {
+		return rank;
 	}
 
-	public void setPriority(U priority) {
-		this.priority = priority;
+	public void setParent(Node<T> parent) {
+		this.parent = parent;
+	}
+
+	public void setKey(T key) {
+		this.key = key;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 }
+
+
+

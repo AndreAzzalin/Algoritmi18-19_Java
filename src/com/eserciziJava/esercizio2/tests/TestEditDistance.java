@@ -13,50 +13,50 @@ public class TestEditDistance {
 
 	// editDistance normal
 	@Test
-	public void test_CalculateOneEmpty() {
+	public void test_calculateOneEmpty() {
 		String strA = "test";
 		String strB = "";
 		assertEquals(strA.length(), EditDistance.calculate(strA, strB));
 	}
 
 	@Test
-	public void test_CalculateEmpty() {
+	public void test_calculateEmpty() {
 		assertEquals(0, EditDistance.calculate("", ""));
 	}
 
 	//@todo approfondire tipo Executable
 	@Test
-	public void test_CalculateNull() {
+	public void test_calculateNull() {
 		assertThrows(IllegalArgumentException.class, () -> EditDistance.calculate(null, null));
 	}
 
 	@Test
-	public void test_CalculateOne() {
+	public void test_calculateOne() {
 		assertEquals(1, EditDistance.calculate("casa", "cassa"));
 	}
 
 
 	// editDistance dynamic normal
 	@Test
-	public void test_CalculateDynOneEmpty() {
+	public void test_calculateDynOneEmpty() {
 		String strA = "test";
 		String strB = "";
 		assertEquals(strA.length(), EditDistance.calculateDyn(strA, strB));
 	}
 
 	@Test
-	public void test_CalculateDynEmpty() {
+	public void test_calculateDynEmpty() {
 		assertEquals(0, EditDistance.calculateDyn("", ""));
 	}
 
 	//@todo approfondire tipo Executable
 	@Test
-	public void test_CalculateDynNull() {
+	public void test_calculateDynNull() {
 		assertThrows(IllegalArgumentException.class, () -> EditDistance.calculateDyn(null, null));
 	}
 
 	@Test
-	public void test_CalculateDynOne() {
+	public void test_calculateDynOne() {
 		assertEquals(1, EditDistance.calculateDyn("casa", "cassa"));
 	}
 
