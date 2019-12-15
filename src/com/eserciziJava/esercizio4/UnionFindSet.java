@@ -1,8 +1,15 @@
-
-package com.eserciziJava.esercizio3;
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.eserciziJava.esercizio4;
 import java.util.HashMap;
 
+/**
+ *
+ * @author n.gilli
+ */
 public class UnionFindSet<T> {
  
     HashMap<T,T> elements = new HashMap<>();

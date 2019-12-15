@@ -1,4 +1,4 @@
-package com.eserciziJava.esercizio3;
+package com.eserciziJava.esercizio4.old.unionFindSet;
 
 public class UnionFindSetException extends Exception {
 	public UnionFindSetException(String message) {
