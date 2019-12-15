@@ -40,6 +40,8 @@ public class Kruskal{
         int i;
         Vertex v1;
         Vertex v2;
+
+
         for(i=0; i<edgeList.size(); i++){
             v1 = edgeList.get(i).getVertex1();
             v2 = edgeList.get(i).getVertex2();

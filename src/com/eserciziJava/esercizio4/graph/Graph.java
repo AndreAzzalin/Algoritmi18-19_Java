@@ -74,14 +74,15 @@ public abstract class Graph<T> {
 	// Return true if vertex are adjacent
 	public boolean adjacentVertex(Vertex v1, Vertex v2){
 		List<Edge> adjacentEdge1 = adjacentEdge(v1);
-		for(int j = 0; j < adjacentEdge1.size(); j++ ){
-			if(adjacentEdge1.get(j).getVertex1().equals(v2)){
+		for (Edge edge : adjacentEdge1) {
+			if (edge.getVertex1().equals(v2)) {
 				return true;
 			}
 		}
+
 		List<Edge> adjacentEdge2 = adjacentEdge(v2);
-		for(int j = 0; j < adjacentEdge2.size(); j++ ){
-			if(adjacentEdge1.get(j).getVertex1().equals(v1)){
+		for (Edge edge : adjacentEdge2) {
+			if(edge.getVertex1().equals(v1)){
 				return true;
 			}
 		}
@@ -128,22 +129,21 @@ public abstract class Graph<T> {
 	public abstract boolean isDirected();
 
 	public List<Vertex> getVertexList(){
-		List<Vertex> vertexList = new ArrayList<Vertex>();
-		vertexList.addAll(this.adjacencyList.keySet());
-		return vertexList;
+		return new ArrayList<>(this.adjacencyList.keySet());
 	}
 
 	public List<Edge> getEdgeList(){
 		return edgeList;
 	}
 
-
 	// TODO: 15/12/2019 da valutare se lasciarlo o meno
 	public List<Edge> getDirectedEdgeList(){
 		List<Edge> edgeList = new ArrayList<>();
+
 		for (Vertex x: adjacencyList.keySet()){
 			edgeList.addAll(adjacencyList.get(x));
 		}
+
 		return edgeList;
 	}
 
@@ -152,14 +152,8 @@ public abstract class Graph<T> {
 	}
 
 	public boolean containEdge(Vertex v1, Vertex v2){
-		List<Edge> edgeList= this.adjacencyList.get(v1);
-		boolean contain = false;
-		int i;
-		for (i=0; i<edgeList.size() && !contain; i++){
-			if(edgeList.get(i).getVertex1().equals(v2))
-				contain = true;
-		}
-		return contain;
+		//comlpexity O(n)
+			return this.adjacencyList.get(v1).contains(v2);
 	}
 
 	public int vertexNumber(){
@@ -173,12 +167,17 @@ public abstract class Graph<T> {
 		boolean contain = false;
 		List<Edge> edgeList= this.adjacencyList.get(v1);
 		int i;
+
+
 		for (i=0; i<edgeList.size() && !contain; i++){
 			if(edgeList.get(i).getVertex1().equals(v2)){
 				contain = true;
 				label = (T) edgeList.get(i).getWeight();
 			}
 		}
+
+
+
 		return label;
 	}
 

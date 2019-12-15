@@ -63,6 +63,7 @@ public class KruskalDistance {
 
             minimumForest.printGraph();
 
+            System.out.println("\n\n===================================================\n\n");
             System.out.println("Peso: " + minimumForest.weight()/1000);
 
             System.out.println("Numero vertici: " + minimumForest.getVertexList().size());

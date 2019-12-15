@@ -1,8 +1,8 @@
 package com.eserciziJava.esercizio3.tests;
 
-import com.eserciziJava.esercizio3.ufsOld.Node;
-import com.eserciziJava.esercizio3.ufsOld.UnionFindSet;
-import com.eserciziJava.esercizio3.ufsOld.UnionFindSetException;
+
+
+import com.eserciziJava.esercizio3.UnionFindSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +29,9 @@ public class TestUnionFindSet {
 		setTest = new UnionFindSet<>();
 
 
-		setTest.makeSet(arrayTest);
+		for (Integer el : arrayTest) {
+			setTest.makeSet(el);
+		}
 
 
 	}
@@ -37,28 +39,24 @@ public class TestUnionFindSet {
 
 	@Test
 	public void test_makeSet() {
-
-
-		HashMap<Integer, Node<Integer>> map = setTest.getMap();
-
-		assertEquals(5, map.size());
+		assertEquals(5, setTest.getElements().size());
 	}
 
 	@Test
-	public void test_find() throws UnionFindSetException {
-
-
+	public void test_find() {
 		assertEquals(5, setTest.find(5));
 	}
 
 	@Test
-	public void test_union() throws UnionFindSetException {
-
-
+	public void test_union() {
 		setTest.union(setTest.find(1), setTest.find(2));
-		Node<Integer> child = setTest.getNode(2);
 
-		assertEquals(1, child.getParent().getKey());
+		assertEquals(1, setTest.find(2));
+		assertEquals(1, setTest.find(1));
+
+		setTest.union(setTest.find(2), setTest.find(4));
+
+		assertEquals(1, setTest.find(4));
 	}
 
 

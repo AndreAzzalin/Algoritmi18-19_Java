@@ -47,7 +47,7 @@ public class Edge<T>{
 
     @Override
     public String toString() {
-        return "NotDirectedEdge{" + "vertex1=" + vertex1 + ", vertex2=" + vertex2 + ", weight=" + weight + '}';
+        return "Edge {" + "vertex1=" + vertex1 + ", vertex2=" + vertex2 + ", weight=" + weight + '}';
     }
      
 }
