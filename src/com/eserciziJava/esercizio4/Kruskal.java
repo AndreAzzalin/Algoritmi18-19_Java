@@ -12,10 +12,7 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
 
-/**
- *
- * @author n.gilli
- */
+
 public class Kruskal{
     
     // Kruskal algorithm

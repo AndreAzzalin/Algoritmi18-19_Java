@@ -13,64 +13,75 @@ import com.eserciziJava.esercizio4.graph.Vertex;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.eserciziJava.esercizio4.Kruskal.mstKruskal;
 
-/**
- *
- * @author n.gilli
- */
+
 public class KruskalDistance {
-    
-    public static void main (String[] args){
-        
-        //String csvFile = args[0];
-        String line = "";
-        String cvsSplitBy = ",";
-        HashMap<String, Vertex> vertexList = new HashMap<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Andrea\\IdeaProjects\\Java\\src\\com\\eserciziJava\\esercizio4\\datasets\\italian_dist_graph.csv"))) {
+	public static void main(String[] args) {
 
-            Graph<Double> graph = new UndirectedGraph<>();
-            Vertex v1;
-            Vertex v2;
+		HashMap<String, Vertex> vertices = new HashMap<>();
+		Graph<Double> graph = new UndirectedGraph<>();
 
-            while ((line = br.readLine()) != null) {
+		Vertex v1;
+		Vertex v2;
 
-                String[] row = line.split(cvsSplitBy);
+		String pathDataset = "C:\\Users\\Andrea\\IdeaProjects\\Java\\src\\com\\eserciziJava\\esercizio4\\datasets\\italian_dist_graph.csv";
+		List<String> dataset = getDataset(pathDataset);
 
-                if(vertexList.containsKey(row[0]))
-                   v1 = vertexList.get(row[0]);
-                else {
-                    v1 = new Vertex(row[0]);
-                    vertexList.put(row[0], v1);
-                }
 
-                if(vertexList.containsKey(row[1]))
-                   v2 = vertexList.get(row[1]);
-                else {
-                    v2 = new Vertex(row[1]);
-                    vertexList.put(row[1], v2);
-                }
+		for (String line : dataset) {
+			String[] row = line.split("[,]");
 
-                double distance = Double.parseDouble(row[2]);                 
-                graph.addEdge(v1, v2, distance);
+			if (vertices.containsKey(row[0])) {
+				v1 = vertices.get(row[0]);
+			} else {
+				v1 = new Vertex(row[0]);
+				vertices.put(row[0], v1);
+			}
 
-            }                
+			if (vertices.containsKey(row[1])) {
+				v2 = vertices.get(row[1]);
+			} else {
+				v2 = new Vertex(row[1]);
+				vertices.put(row[1], v2);
+			}
 
-            Graph minimumForest = mstKruskal(graph);
+			double distance = Double.parseDouble(row[2]);
+			graph.addEdge(v1, v2, distance);
 
-            minimumForest.printGraph();
+		}
 
-            System.out.println("\n\n===================================================\n\n");
-            System.out.println("Peso: " + minimumForest.weight()/1000);
+		Graph minimumForest = mstKruskal(graph);
+		minimumForest.printGraph();
 
-            System.out.println("Numero vertici: " + minimumForest.getVertexList().size());
-            System.out.println("Numero archi: " + minimumForest.getEdgeNumber());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
+		System.out.println("\n\n===================================================\n\n");
+		System.out.println("Peso: " + minimumForest.weight() / 1000);
+
+		System.out.println("Numero vertici: " + minimumForest.getVertexList().size());
+		System.out.println("Numero archi: " + minimumForest.getEdgeNumber());
+
+	}
+
+
+	private static List<String> getDataset(String path) {
+		List<String> dataset = new ArrayList<>();
+
+		try (Stream<String> datasetFileStream = Files.lines(Paths.get(path))) {
+			dataset = datasetFileStream
+							.flatMap(str -> Arrays.stream(str.split("[\\r\\n]")))
+							.collect(Collectors.toList());
+		} catch (IOException e) {
+			System.out.println("Error: " + e + " | Insert valid .txt in dataset");
+		}
+
+		return dataset;
+	}
+
 }

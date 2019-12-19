@@ -25,13 +25,13 @@ public class CorrectMe {
     risulta maggiore dell'edit distance minima.
  */
 		String basePath = System.getProperty("user.dir") + getOS() + "src" + getOS() + "com" + getOS() + "eserciziJava" + getOS() + "esercizio2" + getOS() + "datasets" + getOS();
-		String pathToCorrectMe = basePath + "correctme.txt";
-		String pathToDictionary = basePath + "dictionary.txt";
+		String pathCorrectMe = basePath + "correctme.txt";
+		String pathDictionary = basePath + "dictionary.txt";
 
 
 		System.out.println("Default path for datasets:");
-		System.out.println("Path for correctme.txt -> " + pathToCorrectMe);
-		System.out.println("Path for dictionary.txt -> " + pathToDictionary);
+		System.out.println("Path for correctme.txt -> " + pathCorrectMe);
+		System.out.println("Path for dictionary.txt -> " + pathDictionary);
 
 		Scanner sc = new Scanner(System.in);
 
@@ -39,21 +39,21 @@ public class CorrectMe {
 		String choice = sc.nextLine();
 		if (choice.equals("Y") || choice.equals("y")) {
 			System.out.println("Insert new correctme.txt path:");
-			pathToCorrectMe = sc.nextLine();
+			pathCorrectMe = sc.nextLine();
 			System.out.println("Insert new dictionary.txt path:");
-			pathToDictionary = sc.nextLine();
+			pathDictionary = sc.nextLine();
 		}
 
 
-		assumeCorrections(pathToCorrectMe, pathToDictionary);
+		assumeCorrections(pathCorrectMe, pathDictionary);
 
 	}
 
 
 
-	private static void assumeCorrections(String pathToCorrectMe, String pathToDictionary) {
-		List<String> correctMe = getCorrectMeList(pathToCorrectMe);
-		List<String> dictionary = getDictionaryList(pathToDictionary);
+	private static void assumeCorrections(String pathCorrectMe, String pathDictionary) {
+		List<String> correctMe = getCorrectMeList(pathCorrectMe);
+		List<String> dictionary = getDictionaryList(pathDictionary);
 		List<String> possibleStrings = new ArrayList<>();
 
 		long startTime = System.currentTimeMillis();
