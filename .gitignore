@@ -1,3 +1,4 @@
 out
-com/eserciziJava/esercizio2/datasets/*
-com/eserciziJava/esercizio4/datasets/*
+src/com/eserciziJava/esercizio2/datasets/*
+src/com/eserciziJava/esercizio4/datasets/*.csv
+
