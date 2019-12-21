@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Graph<T>{
+public abstract class Graph<T> {
 
 	/*
 	grafo G(V,E) denso se : |E| = O(|V|^2). Esempio da ogni nodo si dipartono |V| archi(Grafo completo)
@@ -15,11 +15,10 @@ public abstract class Graph<T>{
 	*/
 
 
-	//hashmap con vertice e lista di edge
+	//hashmap con vertice e lista di edge relativi al vertice
 	protected HashMap<Vertex, List<Edge>> adjacencyList;
+	//list of edges in graph
 	protected List<Edge> edgeList;
-
-
 	protected double weight;
 
 	public Graph() {
@@ -41,6 +40,7 @@ public abstract class Graph<T>{
 
 	public abstract void addEdge(Vertex source, Vertex destination, T tag);
 
+	//return adjagent
 	public List<Edge> getAdjacentEdges(Vertex vertex) {
 		List<Edge> adjacentEdge = new ArrayList<>();
 		for (Vertex it : adjacencyList.keySet()) {
@@ -58,26 +58,19 @@ public abstract class Graph<T>{
 	}
 
 	// Return true if vertex are adjacent
-	public abstract boolean isAdjacent(Vertex vertexA, Vertex vertexB) ;
+	public abstract boolean isAdjacent(Vertex vertexA, Vertex vertexB);
 
-	// TODO: 21/12/2019  assolutamente da riconsiderare ci sono 3 cicli annidati
-	// Remove vertex v from graph
-	public void removeVertex(Vertex v) {
-		for (Vertex x : adjacencyList.keySet()) {
-			if (!x.equals(v)) {
-				boolean b = false;
-				while (!b) {
-					b = true;
-					for (int j = 0; j < adjacencyList.get(x).size() && b; j++) {
-						if (adjacencyList.get(x).get(j).getVertexA().equals(v)) {
-							adjacencyList.get(x).remove(j);
-							b = false;
-						}
-					}
-				}
+
+	public void removeVertex(Vertex vertex) {
+		for (Vertex vertexIt : adjacencyList.keySet()) {
+			if (!vertexIt.equals(vertex)) {
+				adjacencyList.get(vertexIt).
+								removeIf(edge -> edge.getVertexA().equals(vertex)
+												|| edge.getVertexB().equals(vertex) && edgeList.remove(edge));
 			}
 		}
-		adjacencyList.remove(v);
+
+		adjacencyList.remove(vertex);
 	}
 
 	public abstract void removeEdge(Vertex vertexA, Vertex vertexB);
@@ -98,14 +91,14 @@ public abstract class Graph<T>{
 
 	public abstract List<Edge> getEdgesList();
 
-	public boolean containVertex(Vertex v) {
-		return this.adjacencyList.containsKey(v);
+	public boolean containVertex(Vertex vertex) {
+		return this.adjacencyList.containsKey(vertex);
 	}
 
 	public boolean containEdge(Vertex vertexA, Vertex vertexB) {
 		//comlpexity O(n)
 		//se sono adiacenti significa che esiste un arco tra i due nodi
-		return isAdjacent(vertexA,vertexB);
+		return isAdjacent(vertexA, vertexB);
 	}
 
 	public int getVerticesCount() {
@@ -114,9 +107,9 @@ public abstract class Graph<T>{
 
 	public abstract int getEdgesCount();
 
-	public T vertexTag(Vertex vertexA, Vertex vertexB) {
+	public T getVerticiesTag(Vertex vertexA, Vertex vertexB) {
 		for (Edge edge : this.adjacencyList.get(vertexA)) {
-			if (edge.getVertexA().equals(vertexB)) {
+			if (edge.getVertexA().equals(vertexB) || edge.getVertexB().equals(vertexB)) {
 				return (T) edge.getTag();
 			}
 		}

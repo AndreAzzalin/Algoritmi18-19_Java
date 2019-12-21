@@ -20,9 +20,7 @@ public class Kruskal {
 
 		List<Vertex> vertexList = graph.getVerticiesList();
 		UnionFindSet set = new UnionFindSet();
-		vertexList.forEach((v) -> {
-			set.makeSet(v);
-		});
+		vertexList.forEach(set::makeSet);
 		List<Edge> edgeList = graph.getEdgesList();
 		// Sorting edge list
 		edgeList.sort(new EdgeDoubleComparator());
