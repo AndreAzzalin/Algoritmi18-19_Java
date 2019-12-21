@@ -11,20 +11,20 @@ public class UndirectedGraph<T> extends Graph<T> {
 		boolean b1 = false;
 		boolean b2 = false;
 		this.weight = add((Double) weight);
-
 		Edge nDEdge = new Edge(source, destination, weight);
+
 		edgeList.add(nDEdge);
 
 		if (!adjacencyList.containsKey(source)) {
 			List<Edge> tempList = new ArrayList<>();
-			tempList.add(new Edge<>(source,destination, weight));
+			tempList.add(new Edge<>(destination,source, weight));
 			addVertex(source, tempList);
 			b1 = true;
 		}
 
 		if (!adjacencyList.containsKey(destination)) {
 			List<Edge> tempList = new ArrayList<>();
-			tempList.add(new Edge<>(destination,source, weight));
+			tempList.add(new Edge<>(source,destination, weight));
 			addVertex(destination, tempList);
 			b2 = true;
 		}
@@ -35,6 +35,17 @@ public class UndirectedGraph<T> extends Graph<T> {
 		if (!b2) {
 			adjacencyList.get(destination).add(new Edge<>(source,destination, weight));
 		}
+	}
+
+	@Override
+	public boolean isAdjacent(Vertex vertexA, Vertex vertexB) {
+		return getAdjacentEdges(vertexA)
+						.stream()
+						.anyMatch(it -> it.getVertexB().equals(vertexB))
+						||
+						getAdjacentEdges(vertexB)
+										.stream()
+										.anyMatch(it -> it.getVertexA().equals(vertexA));
 	}
 
 	@Override
@@ -51,12 +62,12 @@ public class UndirectedGraph<T> extends Graph<T> {
 	}
 
 	@Override
-	public List<Edge> getEdgeList() {
+	public List<Edge> getEdgesList() {
 		return edgeList;
 	}
 
 	@Override
-	public int getEdgeNumber() {
+	public int getEdgesCount() {
 		int count = 0;
 		for (Vertex x : adjacencyList.keySet()) {
 			count = count + adjacencyList.get(x).size();

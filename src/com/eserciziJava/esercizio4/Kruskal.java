@@ -23,7 +23,7 @@ public class Kruskal {
 		vertexList.forEach((v) -> {
 			set.makeSet(v);
 		});
-		List<Edge> edgeList = graph.getEdgeList();
+		List<Edge> edgeList = graph.getEdgesList();
 		// Sorting edge list
 		edgeList.sort(new EdgeDoubleComparator());
 

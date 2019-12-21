@@ -58,24 +58,7 @@ public abstract class Graph<T>{
 	}
 
 	// Return true if vertex are adjacent
-	public boolean isAdjacent(Vertex vertexA, Vertex vertexB) {
-		List<Edge> adjacentEdge1 = getAdjacentEdges(vertexA);
-		for (Edge edge : adjacentEdge1) {
-			if (edge.getVertexA().equals(vertexB)) {
-				return true;
-			}
-		}
-
-
-		List<Edge> adjacentEdge2 = getAdjacentEdges(vertexB);
-		for (Edge edge : adjacentEdge2) {
-			if (edge.getVertexA().equals(vertexA)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
+	public abstract boolean isAdjacent(Vertex vertexA, Vertex vertexB) ;
 
 	// TODO: 21/12/2019  assolutamente da riconsiderare ci sono 3 cicli annidati
 	// Remove vertex v from graph
@@ -113,7 +96,7 @@ public abstract class Graph<T>{
 		return new ArrayList<>(this.adjacencyList.keySet());
 	}
 
-	public abstract List<Edge> getEdgeList();
+	public abstract List<Edge> getEdgesList();
 
 	public boolean containVertex(Vertex v) {
 		return this.adjacencyList.containsKey(v);
@@ -121,14 +104,15 @@ public abstract class Graph<T>{
 
 	public boolean containEdge(Vertex vertexA, Vertex vertexB) {
 		//comlpexity O(n)
-		return this.adjacencyList.get(vertexA).contains(vertexB);
+		//se sono adiacenti significa che esiste un arco tra i due nodi
+		return isAdjacent(vertexA,vertexB);
 	}
 
-	public int vertexNumber() {
+	public int getVerticesCount() {
 		return this.adjacencyList.size();
 	}
 
-	public abstract int getEdgeNumber();
+	public abstract int getEdgesCount();
 
 	public T vertexTag(Vertex vertexA, Vertex vertexB) {
 		for (Edge edge : this.adjacencyList.get(vertexA)) {

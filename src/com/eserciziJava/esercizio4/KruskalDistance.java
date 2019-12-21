@@ -75,7 +75,7 @@ public class KruskalDistance {
 		System.out.println("Weight: " + minimumForest.getWeight() / 1000);
 
 		System.out.println("Vertices: " + minimumForest.getVerticiesList().size());
-		System.out.println("Edges: " + minimumForest.getEdgeNumber());
+		System.out.println("Edges: " + minimumForest.getEdgesCount());
 
 	}
 

@@ -4,9 +4,6 @@ import com.eserciziJava.esercizio4.graph.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGraph {
@@ -46,26 +43,40 @@ public class TestGraph {
 		directedGraph.addEdge(v4, v5, (double) 100);
 
 
-		// undirectedGraph.printGraph();
-		// directedGraph.printGraph();
+		//undirectedGraph.printGraph();
+//directedGraph.printGraph();
 	}
 
 
 	@Test
 	public void test_getAdjacentEdgesUndirectedGraph() {
-		assertEquals(2, undirectedGraph.getAdjacentEdges(v1).get(0).getVertexA().getKey());
-		assertEquals(3, undirectedGraph.getAdjacentEdges(v1).get(1).getVertexA().getKey());
+	 	assertEquals(2, undirectedGraph.getAdjacentEdges(v1).get(0).getVertexA().getKey());
+	 	assertEquals(3, undirectedGraph.getAdjacentEdges(v1).get(1).getVertexA().getKey());
 	}
 
 	@Test
-	public void test_isAdjacent() {
+	public void test_getAdjacentEdgesDirectedGraph() {
+			assertEquals(2, directedGraph.getAdjacentEdges(v1).get(0).getVertexB().getKey());
+			assertEquals(3, directedGraph.getAdjacentEdges(v1).get(1).getVertexB().getKey());
+	}
+
+	@Test
+	public void test_isAdjacentUndirectedGraph() {
 		assertTrue(undirectedGraph.isAdjacent(v1, v2));
 		assertFalse(undirectedGraph.isAdjacent(v1, v5));
 	}
 
 
 	@Test
+	public void test_isAdjacentDirectedGraph() {
+		assertTrue(directedGraph.isAdjacent(v1, v2));
+		assertFalse(directedGraph.isAdjacent(v1, v5));
+	}
+
+
+	@Test
 	public void test_removeEdgeDirectedGraph() {
+
 		assertTrue(directedGraph.isAdjacent(v1, v2));
 		directedGraph.removeEdge(v1, v2);
 		assertFalse(directedGraph.isAdjacent(v1, v2));
@@ -100,11 +111,39 @@ public class TestGraph {
 
 	@Test
 	public void test_getEdgeListDirectedGraph() {
-		List<Edge> a = directedGraph.getEdgeList();
+		assertEquals(6, directedGraph.getEdgesList().size());
+		directedGraph.removeEdge(v1,v2);
+		assertEquals(5, directedGraph.getEdgesList().size());
+	}
 
+	@Test
+	public void test_getEdgeListUndirectedGraph() {
+		assertEquals(6, undirectedGraph.getEdgesList().size());
+		directedGraph.removeEdge(v1,v2);
+		assertEquals(5, directedGraph.getEdgesList().size());
+	}
 
-		assertEquals(6, directedGraph.getEdgeList().size());
+	@Test
+	public void test_containEdgeUndirectedGraph(){
+		assertTrue(undirectedGraph.containEdge(v1,v2));
+		assertFalse(undirectedGraph.containEdge(v1,v5));
 
+	}
+
+	@Test
+	public void test_containEdgeDirectedGraph(){
+		assertTrue(directedGraph.containEdge(v1,v2));
+		assertFalse(directedGraph.containEdge(v1,v2));
+	}
+
+	@Test
+	public void test_getEdgesCountUndirectedGraph(){
+		assertEquals(6,undirectedGraph.getEdgesCount());
+	}
+
+	@Test
+	public void test_getEdgesCountDirectedGraph(){
+		assertEquals(6,directedGraph.getEdgesCount());
 	}
 
 
