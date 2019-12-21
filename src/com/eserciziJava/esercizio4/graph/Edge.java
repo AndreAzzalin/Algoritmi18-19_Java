@@ -2,52 +2,58 @@
 package com.eserciziJava.esercizio4.graph;
 
 
-public class Edge<T>{
-    
-    Vertex vertex1;
-    Vertex vertex2;
-    T weight;
+public class Edge<T> {
+
+	Vertex vertexA;
+	Vertex vertexB;
+	T tag;
 
 
-    public Edge(Vertex vertex1,Vertex vertex2, T weight) {
-        this.vertex1 = vertex1;
-        this.vertex2 = vertex2;
-        this.weight = weight;
-    }
+	public Edge(Vertex vertexA, Vertex vertexB, T tag) {
+		this.vertexA = vertexA;
+		this.vertexB = vertexB;
+		this.tag = tag;
+	}
 
-    public Edge(Vertex vertex1, T weight) {
-        this.vertex1 = vertex1;
-        this.vertex2 = null;
-        this.weight = weight;
-    }
+	public Edge(Vertex vertexA, T tag) {
+		this.vertexA = vertexA;
+		this.vertexB = null;
+		this.tag = tag;
+	}
 
-    public Vertex getVertex1() {
-        return vertex1;
-    }
+	public Vertex getVertexA() {
+		return vertexA;
+	}
 
-    public void setVertex1(Vertex vertex1) {
-        this.vertex1 = vertex1;
-    }
+	public void setVertexA(Vertex vertexA) {
+		this.vertexA = vertexA;
+	}
 
-    public Vertex getVertex2() {
-        return vertex2;
-    }
+	public Vertex getVertexB() {
+		return vertexB;
+	}
 
-    public void setVertex2(Vertex vertex2) {
-        this.vertex2 = vertex2;
-    }
+	public void setVertexB(Vertex vertexB) {
+		this.vertexB = vertexB;
+	}
 
-    public T getWeight() {
-        return weight;
-    }
+	public T getTag() {
+		return tag;
+	}
 
-    public void setWeight(T weight) {
-        this.weight = weight;
-    }
+	public void setTag(T tag) {
+		this.tag = tag;
+	}
 
-    @Override
-    public String toString() {
-        return "Edge {" + "vertex1=" + vertex1 + ", vertex2=" + vertex2 + ", weight=" + weight + '}';
-    }
-     
+	@Override
+	public String toString() {
+		if (vertexB == null) {
+			return "\n\tEdge -> " + "destination= " + vertexA + " | tag=" + tag;
+		} else if (vertexA == null) {
+			return "\n\tEdge -> " + "destination= " + vertexB + " | tag=" + tag;
+		} else {
+			return "\n\tEdge -> " + "source= " + vertexA + " | destination= " + vertexB + " | tag=" + tag;
+		}
+	}
+
 }

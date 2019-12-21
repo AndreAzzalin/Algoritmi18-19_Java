@@ -24,6 +24,8 @@ public class CorrectMe {
     il correttore non deve piú calcolare l'edit distance quando la lunghezza della parola del dizionario
     risulta maggiore dell'edit distance minima.
  */
+
+
 		String basePath = System.getProperty("user.dir") + getOS() + "src" + getOS() + "com" + getOS() + "eserciziJava" + getOS() + "esercizio2" + getOS() + "datasets" + getOS();
 		String pathCorrectMe = basePath + "correctme.txt";
 		String pathDictionary = basePath + "dictionary.txt";

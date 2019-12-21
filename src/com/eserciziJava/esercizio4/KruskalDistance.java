@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.eserciziJava.esercizio4;
 
-
 import com.eserciziJava.esercizio4.graph.Graph;
+import com.eserciziJava.esercizio4.graph.GraphException;
 import com.eserciziJava.esercizio4.graph.UndirectedGraph;
 import com.eserciziJava.esercizio4.graph.Vertex;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
+import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,15 +17,32 @@ import static com.eserciziJava.esercizio4.Kruskal.mstKruskal;
 
 public class KruskalDistance {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws GraphException {
 
 		HashMap<String, Vertex> vertices = new HashMap<>();
 		Graph<Double> graph = new UndirectedGraph<>();
 
-		Vertex v1;
-		Vertex v2;
+		Vertex vertexA;
+		Vertex vertexB;
 
-		String pathDataset = "C:\\Users\\Andrea\\IdeaProjects\\Java\\src\\com\\eserciziJava\\esercizio4\\datasets\\italian_dist_graph.csv";
+
+		String basePath = System.getProperty("user.dir") + getOS() + "src" + getOS() + "com" + getOS() + "eserciziJava" + getOS() + "esercizio4" + getOS() + "datasets" + getOS();
+		String pathDataset = basePath + "italian_dist_graph.csv";
+
+
+
+		System.out.println("Default path for dataset:");
+				System.out.println("Path for dataset .csv -> " + pathDataset);
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("Do you want change dafault path? Y / N ");
+		String choice = sc.nextLine();
+		if (choice.equals("Y") || choice.equals("y")) {
+			System.out.println("Insert new dataset .csv path:");
+			pathDataset = sc.nextLine();
+		}
+
 		List<String> dataset = getDataset(pathDataset);
 
 
@@ -40,21 +50,21 @@ public class KruskalDistance {
 			String[] row = line.split("[,]");
 
 			if (vertices.containsKey(row[0])) {
-				v1 = vertices.get(row[0]);
+				vertexA = vertices.get(row[0]);
 			} else {
-				v1 = new Vertex(row[0]);
-				vertices.put(row[0], v1);
+				vertexA = new Vertex(row[0]);
+				vertices.put(row[0], vertexA);
 			}
 
 			if (vertices.containsKey(row[1])) {
-				v2 = vertices.get(row[1]);
+				vertexB = vertices.get(row[1]);
 			} else {
-				v2 = new Vertex(row[1]);
-				vertices.put(row[1], v2);
+				vertexB = new Vertex(row[1]);
+				vertices.put(row[1], vertexB);
 			}
 
 			double distance = Double.parseDouble(row[2]);
-			graph.addEdge(v1, v2, distance);
+			graph.addEdge(vertexA, vertexB, distance);
 
 		}
 
@@ -62,10 +72,10 @@ public class KruskalDistance {
 		minimumForest.printGraph();
 
 		System.out.println("\n\n===================================================\n\n");
-		System.out.println("Peso: " + minimumForest.weight() / 1000);
+		System.out.println("Weight: " + minimumForest.getWeight() / 1000);
 
-		System.out.println("Numero vertici: " + minimumForest.getVertexList().size());
-		System.out.println("Numero archi: " + minimumForest.getEdgeNumber());
+		System.out.println("Vertices: " + minimumForest.getVerticiesList().size());
+		System.out.println("Edges: " + minimumForest.getEdgeNumber());
 
 	}
 
@@ -82,6 +92,18 @@ public class KruskalDistance {
 		}
 
 		return dataset;
+	}
+
+	@NotNull
+	private static String getOS() {
+		String os = System.getProperty("os.name");
+
+		if (os.contains("Windows"))
+			return "\\";
+		else
+			return "//";
+
+
 	}
 
 }

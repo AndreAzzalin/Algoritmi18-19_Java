@@ -1,19 +1,24 @@
 package com.eserciziJava.esercizio4.graph;
 
 
-
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Graph<T> {
+public abstract class Graph<T>{
+
+	/*
+	grafo G(V,E) denso se : |E| = O(|V|^2). Esempio da ogni nodo si dipartono |V| archi(Grafo completo)
+	grafo G(V,E) sparso se : |E| = O(|V|). Esempio da ogni nodo si dipartono k archi(Bounded Valence Graph)
+	*/
 
 
+	//hashmap con vertice e lista di edge
 	protected HashMap<Vertex, List<Edge>> adjacencyList;
 	protected List<Edge> edgeList;
+
 
 	protected double weight;
 
@@ -23,66 +28,48 @@ public abstract class Graph<T> {
 		this.edgeList = new ArrayList<>();
 	}
 
-	// TODO: 15/12/2019 magari cambiare connected vertices con edge
 	// edge continee il destinatario e il peso per raffiungerlo
 	public void addVertex(Vertex vertex, List<Edge> connectedVertices) {
 		if (adjacencyList.containsKey(vertex)) {
-
 			if (connectedVertices != null)
 				connectedVertices.addAll(adjacencyList.get(vertex));
 			else
 				connectedVertices = adjacencyList.get(vertex);
-
 		}
 		adjacencyList.put(vertex, connectedVertices);
 	}
 
-	public abstract void addEdge(Vertex source, Vertex destination, T weight);
+	public abstract void addEdge(Vertex source, Vertex destination, T tag);
 
-
-	public List<Edge> adjacentEdge(Vertex v) {
+	public List<Edge> getAdjacentEdges(Vertex vertex) {
 		List<Edge> adjacentEdge = new ArrayList<>();
-		for (Vertex x : adjacencyList.keySet()) {
-
-			if (adjacencyList.get(x) != null) {
-				if (x.equals(v)) {
-				/*	for(int j = 0; j < adjacencyList.get(x).size(); j++ ){
-						adjacentEdge.add(adjacencyList.get(x).get(j));
-					}*/
-
-					// TODO: 15/12/2019 verificare se  è equivalente
-					adjacentEdge.addAll(adjacencyList.get(x));
+		for (Vertex it : adjacencyList.keySet()) {
+			if (adjacencyList.get(it) != null) {
+				if (it.equals(vertex)) {
+					adjacentEdge.addAll(adjacencyList.get(it));
 				}
-
-				/*else if (directed){
-					for(int j = 0; j < adjacencyList.get(x).size(); j++ ){
-						if(adjacencyList.get(x).get(j).getVertex().equals(v)){
-							adjacentEdge.add(adjacencyList.get(x).get(j));
-						}
-					}
-				}*/
 			}
 		}
 		return adjacentEdge;
 	}
 
-
-	public double add(double weight, @NotNull T x) {
-		return weight + (double) x;
+	protected double add(double weightToSum) {
+		return this.weight + weightToSum;
 	}
 
 	// Return true if vertex are adjacent
-	public boolean adjacentVertex(Vertex v1, Vertex v2){
-		List<Edge> adjacentEdge1 = adjacentEdge(v1);
+	public boolean isAdjacent(Vertex vertexA, Vertex vertexB) {
+		List<Edge> adjacentEdge1 = getAdjacentEdges(vertexA);
 		for (Edge edge : adjacentEdge1) {
-			if (edge.getVertex1().equals(v2)) {
+			if (edge.getVertexA().equals(vertexB)) {
 				return true;
 			}
 		}
 
-		List<Edge> adjacentEdge2 = adjacentEdge(v2);
+
+		List<Edge> adjacentEdge2 = getAdjacentEdges(vertexB);
 		for (Edge edge : adjacentEdge2) {
-			if(edge.getVertex1().equals(v1)){
+			if (edge.getVertexA().equals(vertexA)) {
 				return true;
 			}
 		}
@@ -90,15 +77,16 @@ public abstract class Graph<T> {
 		return false;
 	}
 
+	// TODO: 21/12/2019  assolutamente da riconsiderare ci sono 3 cicli annidati
 	// Remove vertex v from graph
-	public void removeVertex(Vertex v){
-		for (Vertex x: adjacencyList.keySet()){
-			if(!x.equals(v)){
+	public void removeVertex(Vertex v) {
+		for (Vertex x : adjacencyList.keySet()) {
+			if (!x.equals(v)) {
 				boolean b = false;
-				while(!b){
+				while (!b) {
 					b = true;
-					for(int j = 0; j < adjacencyList.get(x).size() && b; j++ ){
-						if(adjacencyList.get(x).get(j).getVertex1().equals(v)){
+					for (int j = 0; j < adjacencyList.get(x).size() && b; j++) {
+						if (adjacencyList.get(x).get(j).getVertexA().equals(v)) {
 							adjacencyList.get(x).remove(j);
 							b = false;
 						}
@@ -109,17 +97,10 @@ public abstract class Graph<T> {
 		adjacencyList.remove(v);
 	}
 
-	public abstract void removeEdge( Vertex v1, Vertex v2);
+	public abstract void removeEdge(Vertex vertexA, Vertex vertexB);
 
-	public double weight(){
-		return weight;
-	}
-
-	public void printGraph(){
-		for ( Vertex v: adjacencyList.keySet()){
-			System.out.println(v + " " + adjacencyList.get(v));
-		}
-
+	public double getWeight() {
+		return this.weight;
 	}
 
 	public HashMap<Vertex, List<Edge>> getAdjacencyList() {
@@ -128,59 +109,40 @@ public abstract class Graph<T> {
 
 	public abstract boolean isDirected();
 
-	public List<Vertex> getVertexList(){
+	public List<Vertex> getVerticiesList() {
 		return new ArrayList<>(this.adjacencyList.keySet());
 	}
 
-	public List<Edge> getEdgeList(){
-		return edgeList;
-	}
+	public abstract List<Edge> getEdgeList();
 
-	// TODO: 15/12/2019 da valutare se lasciarlo o meno
-	public List<Edge> getDirectedEdgeList(){
-		List<Edge> edgeList = new ArrayList<>();
-
-		for (Vertex x: adjacencyList.keySet()){
-			edgeList.addAll(adjacencyList.get(x));
-		}
-
-		return edgeList;
-	}
-
-	public boolean containVertex( Vertex v){
+	public boolean containVertex(Vertex v) {
 		return this.adjacencyList.containsKey(v);
 	}
 
-	public boolean containEdge(Vertex v1, Vertex v2){
+	public boolean containEdge(Vertex vertexA, Vertex vertexB) {
 		//comlpexity O(n)
-			return this.adjacencyList.get(v1).contains(v2);
+		return this.adjacencyList.get(vertexA).contains(vertexB);
 	}
 
-	public int vertexNumber(){
+	public int vertexNumber() {
 		return this.adjacencyList.size();
 	}
 
 	public abstract int getEdgeNumber();
 
-	public T vertexLabel(Vertex v1, Vertex v2){
-		T label = null;
-		boolean contain = false;
-		List<Edge> edgeList= this.adjacencyList.get(v1);
-		int i;
-
-
-		for (i=0; i<edgeList.size() && !contain; i++){
-			if(edgeList.get(i).getVertex1().equals(v2)){
-				contain = true;
-				label = (T) edgeList.get(i).getWeight();
+	public T vertexTag(Vertex vertexA, Vertex vertexB) {
+		for (Edge edge : this.adjacencyList.get(vertexA)) {
+			if (edge.getVertexA().equals(vertexB)) {
+				return (T) edge.getTag();
 			}
 		}
-
-
-
-		return label;
+		return null;
 	}
 
-
+	public void printGraph() {
+		for (Vertex v : adjacencyList.keySet()) {
+			System.out.println(v + " " + adjacencyList.get(v));
+		}
+	}
 
 }

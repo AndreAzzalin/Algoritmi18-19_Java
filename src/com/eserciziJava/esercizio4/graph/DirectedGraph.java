@@ -7,13 +7,25 @@ import java.util.List;
 public class DirectedGraph<T> extends Graph<T> {
 
 	@Override
+	public List<Edge> getEdgeList() {
+		List<Edge> edgeList = new ArrayList<>();
+
+		for (Vertex x : adjacencyList.keySet()) {
+			edgeList.addAll(adjacencyList.get(x));
+		}
+
+		return edgeList;
+	}
+
+	@Override
 	public void addEdge(Vertex source, Vertex destination, T weight) {
 		boolean b1 = false;
-		this.weight = add(this.weight, weight);
+		this.weight = add((Double) weight);
+
 
 		if (!adjacencyList.containsKey(source)) {
 			List<Edge> tempList = new ArrayList<>();
-			tempList.add(new Edge<>(destination, weight));
+			tempList.add(new Edge<>(source,destination, weight));
 			addVertex(source, tempList);
 			b1 = true;
 		}
@@ -24,20 +36,14 @@ public class DirectedGraph<T> extends Graph<T> {
 		}
 
 		if (!b1) {
-			adjacencyList.get(source).add(new Edge<>(destination, weight));
+			adjacencyList.get(source).add(new Edge<>(source,destination, weight));
 		}
 	}
 
-
 	@Override
-	public void removeEdge(Vertex v1, Vertex v2) {
-
-		if (adjacentVertex(v1, v2)) {
-			for (int j = 0; j < adjacencyList.get(v1).size(); j++) {
-				if (adjacencyList.get(v1).get(j).getVertex1().equals(v2)) {
-					adjacencyList.get(v1).remove(j);
-				}
-			}
+	public void removeEdge(Vertex vertexA, Vertex vertexB) {
+		if (isAdjacent(vertexA, vertexB)) {
+			adjacencyList.get(vertexA).removeIf(item -> item.getVertexA().equals(vertexB));
 		}
 	}
 
