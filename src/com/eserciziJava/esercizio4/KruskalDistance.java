@@ -1,7 +1,6 @@
 package com.eserciziJava.esercizio4;
 
 import com.eserciziJava.esercizio4.graph.Graph;
-import com.eserciziJava.esercizio4.graph.GraphException;
 import com.eserciziJava.esercizio4.graph.UndirectedGraph;
 import com.eserciziJava.esercizio4.graph.Vertex;
 import org.jetbrains.annotations.NotNull;
@@ -12,12 +11,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.eserciziJava.esercizio4.Kruskal.mstKruskal;
+import static com.eserciziJava.esercizio4.kruskal_union_find.Kruskal.mstKruskal;
 
 
 public class KruskalDistance {
 
-	public static void main(String[] args) throws GraphException {
+	public static void main(String[] args)  {
 
 		HashMap<String, Vertex> vertices = new HashMap<>();
 		Graph<Double> graph = new UndirectedGraph<>();
@@ -80,6 +79,10 @@ public class KruskalDistance {
 	}
 
 
+	/**
+	 * @param path
+	 * @return
+	 */
 	private static List<String> getDataset(String path) {
 		List<String> dataset = new ArrayList<>();
 
@@ -94,6 +97,9 @@ public class KruskalDistance {
 		return dataset;
 	}
 
+	/**
+	 * @return
+	 */
 	@NotNull
 	private static String getOS() {
 		String os = System.getProperty("os.name");

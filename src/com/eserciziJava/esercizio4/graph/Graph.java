@@ -27,7 +27,11 @@ public abstract class Graph<T> {
 		this.edgeList = new ArrayList<>();
 	}
 
-	// edge continee il destinatario e il peso per raffiungerlo
+	/**
+	 * edge continee il destinatario e il peso per raffiungerlo
+	 * @param vertex
+	 * @param connectedVertices
+	 */
 	public void addVertex(Vertex vertex, List<Edge> connectedVertices) {
 		if (adjacencyList.containsKey(vertex)) {
 			if (connectedVertices != null)
@@ -38,9 +42,19 @@ public abstract class Graph<T> {
 		adjacencyList.put(vertex, connectedVertices);
 	}
 
+	/**
+	 * @param source
+	 * @param destination
+	 * @param tag
+	 */
 	public abstract void addEdge(Vertex source, Vertex destination, T tag);
 
-	//return adjagent
+	/**
+	 * return adjagent
+	 *
+	 * @param vertex
+	 * @return
+	 */
 	public List<Edge> getAdjacentEdges(Vertex vertex) {
 		List<Edge> adjacentEdge = new ArrayList<>();
 		for (Vertex it : adjacencyList.keySet()) {
@@ -53,14 +67,27 @@ public abstract class Graph<T> {
 		return adjacentEdge;
 	}
 
+	/**
+	 * @param weightToSum
+	 * @return
+	 */
 	protected double add(double weightToSum) {
 		return this.weight + weightToSum;
 	}
 
-	// Return true if vertex are adjacent
+	/**
+	 * Return true if vertex are adjacent
+	 *
+	 * @param vertexA
+	 * @param vertexB
+	 * @return
+	 */
 	public abstract boolean isAdjacent(Vertex vertexA, Vertex vertexB);
 
 
+	/**
+	 * @param vertex
+	 */
 	public void removeVertex(Vertex vertex) {
 		for (Vertex vertexIt : adjacencyList.keySet()) {
 			if (!vertexIt.equals(vertex)) {
@@ -73,40 +100,79 @@ public abstract class Graph<T> {
 		adjacencyList.remove(vertex);
 	}
 
+	/**
+	 * @param vertexA
+	 * @param vertexB
+	 */
 	public abstract void removeEdge(Vertex vertexA, Vertex vertexB);
 
+	/**
+	 * @return
+	 */
 	public double getWeight() {
 		return this.weight;
 	}
 
+	/**
+	 * @return
+	 */
 	public HashMap<Vertex, List<Edge>> getAdjacencyList() {
 		return adjacencyList;
 	}
 
+	/**
+	 * @return
+	 */
 	public abstract boolean isDirected();
 
+	/**
+	 * @return
+	 */
 	public List<Vertex> getVerticiesList() {
 		return new ArrayList<>(this.adjacencyList.keySet());
 	}
 
+	/**
+	 * @return
+	 */
 	public abstract List<Edge> getEdgesList();
 
+	/**
+	 * @param vertex
+	 * @return
+	 */
 	public boolean containVertex(Vertex vertex) {
 		return this.adjacencyList.containsKey(vertex);
 	}
 
+	/**
+	 * @param vertexA
+	 * @param vertexB
+	 * @return
+	 */
 	public boolean containEdge(Vertex vertexA, Vertex vertexB) {
 		//comlpexity O(n)
 		//se sono adiacenti significa che esiste un arco tra i due nodi
 		return isAdjacent(vertexA, vertexB);
 	}
 
+	/**
+	 * @return
+	 */
 	public int getVerticesCount() {
 		return this.adjacencyList.size();
 	}
 
+	/**
+	 * @return
+	 */
 	public abstract int getEdgesCount();
 
+	/**
+	 * @param vertexA
+	 * @param vertexB
+	 * @return
+	 */
 	public T getVerticiesTag(Vertex vertexA, Vertex vertexB) {
 		for (Edge edge : this.adjacencyList.get(vertexA)) {
 			if (edge.getVertexA().equals(vertexB) || edge.getVertexB().equals(vertexB)) {
@@ -116,6 +182,9 @@ public abstract class Graph<T> {
 		return null;
 	}
 
+	/**
+	 *
+	 */
 	public void printGraph() {
 		for (Vertex v : adjacencyList.keySet()) {
 			System.out.println(v + " " + adjacencyList.get(v));

@@ -2,8 +2,6 @@ package com.eserciziJava.esercizio2.tests;
 
 import com.eserciziJava.esercizio2.EditDistance;
 import org.junit.jupiter.api.Test;
-
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -11,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TestEditDistance {
 
 
-	// editDistance normal
 	@Test
 	public void test_calculateOneEmpty() {
 		String strA = "test";
@@ -35,8 +32,6 @@ public class TestEditDistance {
 		assertEquals(1, EditDistance.calculate("casa", "cassa"));
 	}
 
-
-	// editDistance dynamic normal
 	@Test
 	public void test_calculateDynOneEmpty() {
 		String strA = "test";
@@ -49,7 +44,6 @@ public class TestEditDistance {
 		assertEquals(0, EditDistance.calculateDyn("", ""));
 	}
 
-	//@todo approfondire tipo Executable
 	@Test
 	public void test_calculateDynNull() {
 		assertThrows(IllegalArgumentException.class, () -> EditDistance.calculateDyn(null, null));

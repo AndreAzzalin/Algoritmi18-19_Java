@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.eserciziJava.esercizio4;
+package com.eserciziJava.esercizio4.kruskal_union_find;
 import java.util.HashMap;
 
-/**
- *
- * @author n.gilli
- */
+
 public class UnionFindSet<T> {
  
     HashMap<T,T> elements = new HashMap<>();

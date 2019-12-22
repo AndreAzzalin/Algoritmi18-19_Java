@@ -1,4 +1,4 @@
-package com.eserciziJava.esercizio4;
+package com.eserciziJava.esercizio4.kruskal_union_find;
 
 
 import com.eserciziJava.esercizio4.graph.Edge;
@@ -13,7 +13,10 @@ import java.util.List;
 
 public class Kruskal {
 
-	// Kruskal algorithm
+	/**
+	 * @param graph
+	 * @return
+	 */
 	public static Graph mstKruskal(@NotNull Graph graph) {
 		Graph tree = new UndirectedGraph<>();
 

@@ -23,6 +23,13 @@ public class CorrectMe {
     Utilizzare questo dizionario conviene perchè una volta trovata l'edit_distance minima,
     il correttore non deve piú calcolare l'edit distance quando la lunghezza della parola del dizionario
     risulta maggiore dell'edit distance minima.
+
+    https://www.baeldung.com/java-levenshtein-distance
+    https://www.geeksforgeeks.org/edit-distance-dp-using-memoization/
+    https://dzone.com/articles/java-8-automatic-memoization
+
+
+    MEMOIZATIONN = This algorithm performs significantly better than the recursive implementation. However, it involves significant memory consumption
  */
 
 
@@ -52,7 +59,13 @@ public class CorrectMe {
 	}
 
 
-
+	/**
+	 * print foreach word in correctMe file possible corrected word fetched from dictionary file and the minimum number operations for correct it
+	 * with dynamically approach and memoization (best way)
+	 *
+	 * @param pathCorrectMe  path for correctMe.txt file
+	 * @param pathDictionary path for dictionary.txt file
+	 */
 	private static void assumeCorrections(String pathCorrectMe, String pathDictionary) {
 		List<String> correctMe = getCorrectMeList(pathCorrectMe);
 		List<String> dictionary = getDictionaryList(pathDictionary);
@@ -83,7 +96,7 @@ public class CorrectMe {
 			System.out.println("\nWord: " + toCorrectString + " Edit distance: " + editDistMin);
 			possibleStrings.forEach(item -> System.out.print(" | " + item));
 
-			//resetto variabili
+			//reset var for next correctMe word
 			possibleStrings.clear();
 			editDistMin = Integer.MAX_VALUE;
 		}
@@ -93,6 +106,11 @@ public class CorrectMe {
 		System.out.println("\n\nExecution time: " + ((endTime - startTime) / 1000) + "s");
 	}
 
+
+	/**
+	 * @param path for correctMe.txt file
+	 * @return list of string fetched form correctMe.txt file
+	 */
 	private static List<String> getCorrectMeList(String path) {
 		List<String> correctMeList = new ArrayList<>();
 
@@ -110,6 +128,10 @@ public class CorrectMe {
 		return correctMeList;
 	}
 
+	/**
+	 * @param path for dictionary.txt file
+	 * @return list of string fetched form dictionary.txt file
+	 */
 	private static List<String> getDictionaryList(String path) {
 		List<String> dictionaryList = new ArrayList<>();
 
@@ -125,6 +147,9 @@ public class CorrectMe {
 		return dictionaryList;
 	}
 
+	/**
+	 * @return \\ or // if system based on Windows or Unix
+	 */
 	@NotNull
 	private static String getOS() {
 		String os = System.getProperty("os.name");

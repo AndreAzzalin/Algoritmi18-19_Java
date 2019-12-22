@@ -6,6 +6,9 @@ import java.util.List;
 
 public class DirectedGraph<T> extends Graph<T> {
 
+	/**
+	 * @return
+	 */
 	@Override
 	public List<Edge> getEdgesList() {
 		List<Edge> edgeList = new ArrayList<>();
@@ -17,6 +20,11 @@ public class DirectedGraph<T> extends Graph<T> {
 		return edgeList;
 	}
 
+	/**
+	 * @param source
+	 * @param destination
+	 * @param weight
+	 */
 	@Override
 	public void addEdge(Vertex source, Vertex destination, T weight) {
 		boolean b1 = false;
@@ -43,6 +51,11 @@ public class DirectedGraph<T> extends Graph<T> {
 		}
 	}
 
+	/**
+	 * @param vertexA
+	 * @param vertexB
+	 * @return
+	 */
 	@Override
 	public boolean isAdjacent(Vertex vertexA, Vertex vertexB) {
 		return getAdjacentEdges(vertexA)
@@ -50,6 +63,10 @@ public class DirectedGraph<T> extends Graph<T> {
 						.anyMatch(it -> it.getVertexB().equals(vertexB));
 	}
 
+	/**
+	 * @param vertexA
+	 * @param vertexB
+	 */
 	@Override
 	public void removeEdge(Vertex vertexA, Vertex vertexB) {
 		if (isAdjacent(vertexA, vertexB)) {
@@ -57,11 +74,17 @@ public class DirectedGraph<T> extends Graph<T> {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	@Override
 	public boolean isDirected() {
 		return true;
 	}
 
+	/**
+	 * @return
+	 */
 	@Override
 	public int getEdgesCount() {
 		int count = 0;
