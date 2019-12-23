@@ -21,7 +21,6 @@ public class TestEditDistance {
 		assertEquals(0, EditDistance.calculate("", ""));
 	}
 
-	//@todo approfondire tipo Executable
 	@Test
 	public void test_calculateNull() {
 		assertThrows(IllegalArgumentException.class, () -> EditDistance.calculate(null, null));
