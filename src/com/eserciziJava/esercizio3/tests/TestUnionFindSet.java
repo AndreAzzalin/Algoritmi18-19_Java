@@ -5,11 +5,8 @@ package com.eserciziJava.esercizio3.tests;
 import com.eserciziJava.esercizio3.UnionFindSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TestUnionFindSet {
@@ -32,8 +29,6 @@ public class TestUnionFindSet {
 		for (Integer el : arrayTest) {
 			setTest.makeSet(el);
 		}
-
-
 	}
 
 

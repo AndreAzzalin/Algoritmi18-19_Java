@@ -1,18 +1,10 @@
 package com.eserciziJava.esercizio4.graph;
 
-
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class Graph<T> {
-
-	/*
-	grafo G(V,E) denso se : |E| = O(|V|^2). Esempio da ogni nodo si dipartono |V| archi(Grafo completo)
-	grafo G(V,E) sparso se : |E| = O(|V|). Esempio da ogni nodo si dipartono k archi(Bounded Valence Graph)
-	*/
 
 
 	//hashmap con vertice e lista di edge relativi al vertice
@@ -28,9 +20,10 @@ public abstract class Graph<T> {
 	}
 
 	/**
-	 * edge continee il destinatario e il peso per raffiungerlo
-	 * @param vertex
-	 * @param connectedVertices
+	 * add new vertex and list of all edges connected to it
+	 *
+	 * @param vertex            new vertex to add
+	 * @param connectedVertices list of edges connected to vertex
 	 */
 	public void addVertex(Vertex vertex, List<Edge> connectedVertices) {
 		if (adjacencyList.containsKey(vertex)) {
@@ -43,17 +36,17 @@ public abstract class Graph<T> {
 	}
 
 	/**
-	 * @param source
-	 * @param destination
-	 * @param tag
+	 * add new edge to graph
+	 *
+	 * @param source      source vertex
+	 * @param destination destination vertex
+	 * @param tag         edge tag
 	 */
 	public abstract void addEdge(Vertex source, Vertex destination, T tag);
 
 	/**
-	 * return adjagent
-	 *
-	 * @param vertex
-	 * @return
+	 * @param vertex vertex to get the adjacent edges list
+	 * @return list of all adjacent edges from vertex
 	 */
 	public List<Edge> getAdjacentEdges(Vertex vertex) {
 		List<Edge> adjacentEdge = new ArrayList<>();
@@ -68,25 +61,25 @@ public abstract class Graph<T> {
 	}
 
 	/**
-	 * @param weightToSum
-	 * @return
+	 * @param weightToSum edge weight to add to total
+	 * @return new weight
 	 */
 	protected double add(double weightToSum) {
 		return this.weight + weightToSum;
 	}
 
 	/**
-	 * Return true if vertex are adjacent
-	 *
-	 * @param vertexA
-	 * @param vertexB
-	 * @return
+	 * @param vertexA first vertex to be compared
+	 * @param vertexB second vertex to be compared
+	 * @return true if vertices are adjacent, false if not
 	 */
 	public abstract boolean isAdjacent(Vertex vertexA, Vertex vertexB);
 
 
 	/**
-	 * @param vertex
+	 * remove vertex from graph
+	 *
+	 * @param vertex vertex to be removed
 	 */
 	public void removeVertex(Vertex vertex) {
 		for (Vertex vertexIt : adjacencyList.keySet()) {
@@ -96,59 +89,60 @@ public abstract class Graph<T> {
 												|| edge.getVertexB().equals(vertex) && edgeList.remove(edge));
 			}
 		}
-
 		adjacencyList.remove(vertex);
 	}
 
 	/**
-	 * @param vertexA
-	 * @param vertexB
+	 * remove edge from graph
+	 *
+	 * @param vertexA source vertex of edge who will be removed
+	 * @param vertexB destination vertex of edge who will be removed
 	 */
 	public abstract void removeEdge(Vertex vertexA, Vertex vertexB);
 
 	/**
-	 * @return
+	 * @return weight of graph
 	 */
 	public double getWeight() {
 		return this.weight;
 	}
 
 	/**
-	 * @return
+	 * @return return HashMap of graph who stored vertices and edges
 	 */
 	public HashMap<Vertex, List<Edge>> getAdjacencyList() {
 		return adjacencyList;
 	}
 
 	/**
-	 * @return
+	 * @return return true if graph is directed, false if not
 	 */
 	public abstract boolean isDirected();
 
 	/**
-	 * @return
+	 * @return return list of all vertices of graph
 	 */
 	public List<Vertex> getVerticiesList() {
 		return new ArrayList<>(this.adjacencyList.keySet());
 	}
 
 	/**
-	 * @return
+	 * @return return list of all edges of graph
 	 */
 	public abstract List<Edge> getEdgesList();
 
 	/**
-	 * @param vertex
-	 * @return
+	 * @param vertex vertex to be analyzed
+	 * @return return true if vertex is contained in graph, false if not
 	 */
 	public boolean containVertex(Vertex vertex) {
 		return this.adjacencyList.containsKey(vertex);
 	}
 
 	/**
-	 * @param vertexA
-	 * @param vertexB
-	 * @return
+	 * @param vertexA source vertex of edge who will be analyzed
+	 * @param vertexB destination vertex of edge who will be analyzed
+	 * @return return true if vertexA are connected to vertexB, false if not
 	 */
 	public boolean containEdge(Vertex vertexA, Vertex vertexB) {
 		//comlpexity O(n)
@@ -157,21 +151,21 @@ public abstract class Graph<T> {
 	}
 
 	/**
-	 * @return
+	 * @return return the number of vertices in graph
 	 */
 	public int getVerticesCount() {
 		return this.adjacencyList.size();
 	}
 
 	/**
-	 * @return
+	 * @return return the number of edges in graph
 	 */
 	public abstract int getEdgesCount();
 
 	/**
-	 * @param vertexA
-	 * @param vertexB
-	 * @return
+	 * @param vertexA source vertex of edge who will be analyzed
+	 * @param vertexB destination vertex of edge who will be analyzed
+	 * @return return tag of edge between vertexA and vertexB
 	 */
 	public T getVerticiesTag(Vertex vertexA, Vertex vertexB) {
 		for (Edge edge : this.adjacencyList.get(vertexA)) {
@@ -183,7 +177,7 @@ public abstract class Graph<T> {
 	}
 
 	/**
-	 *
+	 * util method for print graph to terminal
 	 */
 	public void printGraph() {
 		for (Vertex v : adjacencyList.keySet()) {

@@ -44,10 +44,11 @@ public class KruskalDistance {
 
 		List<String> dataset = getDataset(pathDataset);
 
-
+		//fetch all lines in dataset
 		for (String line : dataset) {
 			String[] row = line.split("[,]");
 
+			//first element in line is source
 			if (vertices.containsKey(row[0])) {
 				vertexA = vertices.get(row[0]);
 			} else {
@@ -55,6 +56,7 @@ public class KruskalDistance {
 				vertices.put(row[0], vertexA);
 			}
 
+			//second element in line is destination
 			if (vertices.containsKey(row[1])) {
 				vertexB = vertices.get(row[1]);
 			} else {
@@ -62,6 +64,7 @@ public class KruskalDistance {
 				vertices.put(row[1], vertexB);
 			}
 
+			//third element in line is distance between source and destination
 			double distance = Double.parseDouble(row[2]);
 			graph.addEdge(vertexA, vertexB, distance);
 
@@ -80,8 +83,8 @@ public class KruskalDistance {
 
 
 	/**
-	 * @param path
-	 * @return
+	 * @param path path for dataset file
+	 * @return list of all lines in dataset splitted by \n
 	 */
 	private static List<String> getDataset(String path) {
 		List<String> dataset = new ArrayList<>();
@@ -98,7 +101,7 @@ public class KruskalDistance {
 	}
 
 	/**
-	 * @return
+	 * @return \\ or // if system based on Windows or Unix
 	 */
 	@NotNull
 	private static String getOS() {

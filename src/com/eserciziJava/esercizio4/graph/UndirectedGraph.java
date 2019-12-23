@@ -7,9 +7,9 @@ public class UndirectedGraph<T> extends Graph<T> {
 
 
 	/**
-	 * @param source
-	 * @param destination
-	 * @param weight
+	 * @param source      source vertex for new edge in undirected graph
+	 * @param destination destination vertex for new edge in undirected graph
+	 * @param weight      weight for new edge in undirected graph
 	 */
 	@Override
 	public void addEdge(Vertex source, Vertex destination, T weight) {
@@ -43,12 +43,13 @@ public class UndirectedGraph<T> extends Graph<T> {
 	}
 
 	/**
-	 * @param vertexA
-	 * @param vertexB
-	 * @return
+	 * @param vertexA first vertex to be analyzed
+	 * @param vertexB second vertex to be analyzed
+	 * @return return true if vertexA is adjacent to vertexB, false if not
 	 */
 	@Override
 	public boolean isAdjacent(Vertex vertexA, Vertex vertexB) {
+		//check for each direction
 		return getAdjacentEdges(vertexA)
 						.stream()
 						.anyMatch(it -> it.getVertexB().equals(vertexB))
@@ -59,8 +60,8 @@ public class UndirectedGraph<T> extends Graph<T> {
 	}
 
 	/**
-	 * @param vertexA
-	 * @param vertexB
+	 * @param vertexA source vertex of edge who will be removed from undirected graph
+	 * @param vertexB destination vertex of edge who will be removed from undirected graph
 	 */
 	@Override
 	public void removeEdge(Vertex vertexA, Vertex vertexB) {
@@ -71,7 +72,7 @@ public class UndirectedGraph<T> extends Graph<T> {
 	}
 
 	/**
-	 * @return
+	 * @return return always false because invoke method from undirected graph instance
 	 */
 	@Override
 	public boolean isDirected() {
@@ -79,7 +80,7 @@ public class UndirectedGraph<T> extends Graph<T> {
 	}
 
 	/**
-	 * @return
+	 * @return return list of edges in undirected graph
 	 */
 	@Override
 	public List<Edge> getEdgesList() {
@@ -87,7 +88,7 @@ public class UndirectedGraph<T> extends Graph<T> {
 	}
 
 	/**
-	 * @return
+	 * @return return number of edge in undirected graph
 	 */
 	@Override
 	public int getEdgesCount() {

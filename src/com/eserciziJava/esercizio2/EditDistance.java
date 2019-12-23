@@ -100,7 +100,6 @@ public class EditDistance {
 		return min;
 	}
 
-
 	/**
 	 * used as support function for calculateDynRecursive (replace operation)
 	 *
